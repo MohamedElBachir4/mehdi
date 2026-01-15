@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEEmpire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+        
+        * {
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        body {
+            background: #000000;
+            overflow-x: hidden;
+        }
+
+        .golden-border {
+            border: 2px solid #d4af37;
+            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,30,0.9) 100%);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(212, 175, 55, 0.1);
+            position: relative;
+        }
+
+        .golden-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #d4af37, #f4e5b0, #d4af37, #f4e5b0);
+            z-index: -1;
+            border-radius: inherit;
+        }
+
+        .crown-logo {
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8));
+        }
+
+        .menu-item {
+            background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(30,30,40,0.95) 100%);
+            border: 2px solid #d4af37;
+            clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+            padding: 12px 30px;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .menu-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(30,30,40,0.95) 100%);
+        }
+
+        .globe-container {
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Video Frame Styles */
+        .video-frame-container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 20px;
+        }
+
+        .video-frame-wrapper {
+            position: relative;
+            border: 4px solid #d4af37;
+            border-radius: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,30,0.9) 100%);
+            box-shadow: 
+                0 0 30px rgba(212, 175, 55, 0.5),
+                inset 0 0 30px rgba(212, 175, 55, 0.1),
+                0 0 60px rgba(212, 175, 55, 0.3);
+            height: 700px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .video-frame-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 2px solid #d4af37;
+            border-radius: 18px;
+            background: linear-gradient(45deg, #d4af37, #f4e5b0, #d4af37, #f4e5b0);
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .video-frame-wrapper svg {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            max-height: 650px;
+            object-fit: contain;
+            animation: globeFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes globeFloat {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+            }
+            50% { 
+                transform: translateY(-15px) rotate(3deg); 
+            }
+        }
+
+        .social-icon {
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2) translateY(-5px);
+            filter: drop-shadow(0 8px 12px rgba(212, 175, 55, 0.6));
+        }
+
+        .social-icon i {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .logo-top {
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8));
+            transition: all 0.3s ease;
+        }
+
+        .logo-top:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 25px rgba(212, 175, 55, 1));
+        }
+
+        .top-banner {
+            background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(30,30,40,0.95) 100%);
+            border: 2px solid #d4af37;
+            clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .subscribers-box {
+            background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(30,30,40,0.95) 100%);
+            border: 2px solid #d4af37;
+            padding: 15px 25px;
+            margin: 10px 0;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .privacy-badge {
+            background: linear-gradient(135deg, #1e90ff 0%, #0066cc 100%);
+            padding: 8px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(30, 144, 255, 0.6);
+        }
+
+        .thumb-icon {
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8));
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumb-icon:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 1));
+        }
+
+        .thumb-icon:hover i.fa-thumbs-up {
+            transform: rotate(-15deg);
+        }
+
+        .thumb-icon:hover i.fa-thumbs-down {
+            transform: rotate(15deg);
+        }
+
+        .thumb-icon i {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .thumb-icon i.fa-thumbs-down {
+            filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.8));
+        }
+
+        .thumb-icon:hover i.fa-thumbs-down {
+            filter: drop-shadow(0 0 20px rgba(239, 68, 68, 1));
+        }
+
+        .thumb-icon i.fa-comment-dots {
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.8));
+        }
+
+        .thumb-icon:hover i.fa-comment-dots {
+            filter: drop-shadow(0 0 20px rgba(59, 130, 246, 1));
+        }
+
+        .discord-icon {
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8));
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .discord-icon:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 1));
+        }
+
+        .discord-icon i {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        /* Instagram gradient fix */
+        .fa-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Email gradient fix */
+        .fa-envelope {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* X (Twitter) icon styling */
+        .x-icon {
+            color: #ffffff;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+        }
+
+        /* TikTok icon styling */
+        .tiktok-icon {
+            background: linear-gradient(135deg, #000000 0%, #ff0050 50%, #00f2ea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white">
+    <!-- Logo Top Left -->
+    <div class="absolute top-8 left-8 z-50">
+        <div class="logo-top cursor-pointer">
+            <div class="relative w-32 h-32">
+                <svg viewBox="0 0 100 100" class="w-full h-full">
+                    <!-- Shield background -->
+                    <path d="M50 5 L80 20 L80 45 Q80 75 50 95 Q20 75 20 45 L20 20 Z" 
+                          fill="#1a1a2e" stroke="#d4af37" stroke-width="2"/>
+                    <!-- Inner circle -->
+                    <circle cx="50" cy="50" r="30" fill="#2a2a3e" stroke="#d4af37" stroke-width="2"/>
+                    <!-- Crown icon simplified -->
+                    <path d="M35 45 L40 35 L45 42 L50 30 L55 42 L60 35 L65 45 Z" 
+                          fill="#d4af37"/>
+                </svg>
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-black px-3 py-1 rounded-full border-2 border-yellow-500">
+                    <span class="text-yellow-500 text-xs font-bold">WEEmpire</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Banner -->
+    <div class="absolute top-8 left-1/2 transform -translate-x-1/2 z-40" style="width: 600px;">
+        <div class="top-banner py-3 px-8 flex items-center justify-center gap-4">
+            <svg class="w-10 h-10 crown-logo" viewBox="0 0 100 100">
+                <path d="M50 5 L65 25 L85 20 L75 45 L90 55 L50 60 L10 55 L25 45 L15 20 L35 25 Z" 
+                      fill="#d4af37"/>
+                <rect x="30" y="60" width="40" height="15" fill="#d4af37" rx="2"/>
+            </svg>
+            <span class="text-2xl font-bold text-white">(WEEmpire)</span>
+        </div>
+    </div>
+
+    <!-- Right Menu - Fixed to Right Side -->
+    <div class="fixed right-0 top-1/2 transform -translate-y-1/2 z-40 px-4" style="width: 400px;">
+        <div class="flex flex-col gap-3">
+                <!-- Menu Item 1 -->
+                <div class="menu-item cursor-pointer flex items-center justify-center gap-3">
+                    <svg class="w-6 h-6" viewBox="0 0 100 100">
+                        <path d="M50 10 L60 30 L80 35 L65 50 L70 70 L50 60 L30 70 L35 50 L20 35 L40 30 Z" 
+                              fill="#d4af37"/>
+                    </svg>
+                    <span class="text-white text-xl font-semibold">مقدمة</span>
+                </div>
+
+                <!-- Menu Item 2 -->
+                <div class="menu-item cursor-pointer flex items-center justify-center gap-3">
+                    <svg class="w-8 h-8" viewBox="0 0 100 100">
+                        <rect x="20" y="30" width="25" height="40" fill="#1e90ff" stroke="#fff" stroke-width="2"/>
+                        <rect x="55" y="30" width="25" height="40" fill="#ff6b6b" stroke="#fff" stroke-width="2"/>
+                        <rect x="37.5" y="20" width="25" height="50" fill="#4ecdc4" stroke="#fff" stroke-width="2"/>
+                        <text x="50" y="85" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">WINNERS</text>
+                    </svg>
+                    <span class="text-white text-xl font-semibold">الناجحون WINNERS</span>
+                </div>
+
+                <!-- Menu Item 3 -->
+                <div class="menu-item cursor-pointer flex items-center justify-center gap-3">
+                    <span class="text-white text-xl font-semibold">فيديو تعريفي قصير</span>
+                </div>
+
+                <!-- Menu Item 4 -->
+                <div class="menu-item cursor-pointer flex items-center justify-center gap-3">
+                    <svg class="w-8 h-8" viewBox="0 0 100 100">
+                        <rect x="10" y="20" width="80" height="60" fill="#4ecdc4" stroke="#fff" stroke-width="2" rx="5"/>
+                        <circle cx="50" cy="50" r="15" fill="#fff"/>
+                        <polygon points="45,45 55,50 45,55" fill="#4ecdc4"/>
+                    </svg>
+                    <span class="text-white text-xl font-semibold">إستبيان توجيهي</span>
+                </div>
+
+                <!-- Menu Item 5 -->
+                <div class="menu-item cursor-pointer flex items-center justify-center gap-3">
+                    <svg class="w-6 h-6" viewBox="0 0 100 100">
+                        <circle cx="50" cy="30" r="15" fill="#d4af37"/>
+                        <circle cx="30" cy="60" r="12" fill="#d4af37"/>
+                        <circle cx="70" cy="60" r="12" fill="#d4af37"/>
+                        <circle cx="50" cy="80" r="10" fill="#d4af37"/>
+                        <line x1="50" y1="45" x2="30" y2="60" stroke="#d4af37" stroke-width="3"/>
+                        <line x1="50" y1="45" x2="70" y2="60" stroke="#d4af37" stroke-width="3"/>
+                        <line x1="50" y1="45" x2="50" y2="80" stroke="#d4af37" stroke-width="3"/>
+                    </svg>
+                    <span class="text-white text-xl font-semibold">من نحن ؟</span>
+                </div>
+
+                <!-- Privacy Policy -->
+                <div class="menu-item cursor-pointer flex items-center justify-center gap-3">
+                    <svg class="w-6 h-6" viewBox="0 0 100 100">
+                        <rect x="30" y="40" width="40" height="40" fill="#1e90ff" stroke="#fff" stroke-width="3" rx="5"/>
+                        <circle cx="50" cy="30" r="15" fill="none" stroke="#fff" stroke-width="3"/>
+                        <circle cx="50" cy="60" r="5" fill="#fff"/>
+                        <rect x="47" y="65" width="6" height="10" fill="#fff"/>
+                    </svg>
+                    <span class="text-white text-xl font-semibold">PRIVACY POLICY</span>
+                </div>
+
+                <!-- Subscribers Box -->
+                <div class="menu-item cursor-pointer flex items-center justify-center gap-3">
+                    <svg class="w-8 h-8" viewBox="0 0 100 100">
+                        <circle cx="35" cy="40" r="12" fill="#ff6b6b"/>
+                        <circle cx="50" cy="35" r="12" fill="#4ecdc4"/>
+                        <circle cx="65" cy="40" r="12" fill="#ffcc00"/>
+                        <circle cx="80" cy="45" r="8" fill="#00ff00"/>
+                    </svg>
+                    <div class="flex flex-col items-center">
+                        <span class="text-white text-xl font-semibold">1259 Subscribers</span>
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                            <span class="text-white text-lg font-semibold">98Active now</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wisdom Box -->
+                <div class="menu-item cursor-pointer flex items-center justify-center">
+                    <span class="text-white text-xl font-semibold">خلية الحكمة المعرفية</span>
+                </div>
+
+                <!-- Thumbs Up, Down and Comment -->
+                <div class="flex items-center justify-center gap-4 mt-3">
+                    <div class="thumb-icon cursor-pointer">
+                        <i class="fas fa-thumbs-up text-5xl text-yellow-500"></i>
+                    </div>
+                    <div class="thumb-icon cursor-pointer">
+                        <i class="fas fa-thumbs-down text-5xl text-red-500"></i>
+                    </div>
+                    <div class="thumb-icon cursor-pointer">
+                        <i class="fas fa-comment-dots text-5xl text-blue-500"></i>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- Center Video Frame -->
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="video-frame-container relative">
+            <div class="video-frame-wrapper">
+                <!-- 3D Globe SVG -->
+                <svg viewBox="0 0 600 600" class="w-full h-full">
+                    <defs>
+                        <radialGradient id="globeGradient" cx="40%" cy="40%">
+                            <stop offset="0%" style="stop-color:#f4e5b0;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#d4af37;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#8b7355;stop-opacity:1" />
+                        </radialGradient>
+                        <radialGradient id="oceanGradient" cx="40%" cy="40%">
+                            <stop offset="0%" style="stop-color:#90EE90;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#3CB371;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#2F8F5F;stop-opacity:1" />
+                        </radialGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    
+                    <!-- Outer rings -->
+                    <ellipse cx="300" cy="300" rx="320" ry="80" fill="none" stroke="#d4af37" stroke-width="4" opacity="0.6"/>
+                    <ellipse cx="300" cy="300" rx="340" ry="90" fill="none" stroke="#d4af37" stroke-width="3" opacity="0.4"/>
+                    <ellipse cx="300" cy="300" rx="360" ry="100" fill="none" stroke="#d4af37" stroke-width="2" opacity="0.2"/>
+                    
+                    <!-- Main Globe -->
+                    <circle cx="300" cy="300" r="200" fill="url(#globeGradient)" filter="url(#glow)"/>
+                    
+                    <!-- Ocean/Land patterns -->
+                    <circle cx="300" cy="300" r="195" fill="url(#oceanGradient)" opacity="0.7"/>
+                    
+                    <!-- Continents (simplified) -->
+                    <path d="M250 220 Q280 200 320 220 L340 240 Q350 260 330 280 L300 290 Q270 280 260 260 Z" 
+                          fill="#d4af37" opacity="0.6"/>
+                    <path d="M350 280 Q380 270 400 300 L390 330 Q370 340 350 320 Z" 
+                          fill="#d4af37" opacity="0.6"/>
+                    <path d="M220 300 Q200 320 210 350 L240 360 Q260 350 250 330 Z" 
+                          fill="#d4af37" opacity="0.6"/>
+                    
+                    <!-- Highlight -->
+                    <ellipse cx="240" cy="240" rx="60" ry="40" fill="white" opacity="0.2"/>
+                    
+                    <!-- Center Shield with Crown -->
+                    <g transform="translate(300, 300)">
+                        <!-- Shield -->
+                        <path d="M0 -80 L40 -65 L40 -20 Q40 10 0 40 Q-40 10 -40 -20 L-40 -65 Z" 
+                              fill="rgba(0,0,0,0.8)" stroke="#d4af37" stroke-width="3"/>
+                        
+                        <!-- Crown -->
+                        <g transform="translate(0, -60)">
+                            <path d="M-25 -15 L-18 -30 L-10 -20 L0 -35 L10 -20 L18 -30 L25 -15 L20 0 L-20 0 Z" 
+                                  fill="#d4af37" stroke="#f4e5b0" stroke-width="1.5"/>
+                            <!-- Crown jewels -->
+                            <circle cx="-18" cy="-25" r="2" fill="#ff6b6b"/>
+                            <circle cx="0" cy="-30" r="2" fill="#4ecdc4"/>
+                            <circle cx="18" cy="-25" r="2" fill="#ff6b6b"/>
+                            <!-- Crown base -->
+                            <rect x="-22" y="0" width="44" height="8" fill="#d4af37" stroke="#f4e5b0" stroke-width="1"/>
+                            <circle cx="-15" cy="4" r="2" fill="#ff6b6b"/>
+                            <circle cx="0" cy="4" r="2" fill="#4ecdc4"/>
+                            <circle cx="15" cy="4" r="2" fill="#ff6b6b"/>
+                        </g>
+                    </g>
+                    
+                    <!-- WEEmpire text on globe -->
+                    <text x="300" y="380" text-anchor="middle" fill="#d4af37" font-size="32" 
+                          font-family="'Brush Script MT', cursive" font-style="italic" 
+                          stroke="#000" stroke-width="1">WEEmpire</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Media Icons -->
+    <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-4 z-50">
+        <!-- YouTube -->
+        <a href="#" class="social-icon">
+            <i class="fab fa-youtube text-5xl text-red-600"></i>
+        </a>
+
+        <!-- Telegram -->
+        <a href="#" class="social-icon">
+            <i class="fab fa-telegram text-5xl text-blue-500"></i>
+        </a>
+
+        <!-- Phone -->
+        <a href="#" class="social-icon">
+            <i class="fas fa-phone text-5xl text-pink-500"></i>
+        </a>
+
+        <!-- X (Twitter) -->
+        <a href="#" class="social-icon">
+            <i class="fab fa-x-twitter text-5xl x-icon"></i>
+        </a>
+
+        <!-- Instagram -->
+        <a href="#" class="social-icon">
+            <i class="fab fa-instagram text-5xl"></i>
+        </a>
+
+        <!-- Snapchat -->
+        <a href="#" class="social-icon">
+            <i class="fab fa-snapchat text-5xl text-yellow-400"></i>
+        </a>
+
+        <!-- TikTok -->
+        <a href="#" class="social-icon">
+            <i class="fab fa-tiktok text-5xl tiktok-icon"></i>
+        </a>
+
+        <!-- Skype -->
+        <a href="#" class="social-icon">
+            <i class="fab fa-skype text-5xl text-blue-400"></i>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="#" class="social-icon">
+            <i class="fab fa-linkedin text-5xl text-blue-600"></i>
+        </a>
+
+        <!-- Email -->
+        <a href="#" class="social-icon">
+            <i class="fas fa-envelope text-5xl"></i>
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="#" class="social-icon">
+            <i class="fab fa-whatsapp text-5xl text-green-500"></i>
+        </a>
+
+        <!-- Facebook -->
+        <a href="#" class="social-icon">
+            <i class="fab fa-facebook text-5xl text-blue-600"></i>
+        </a>
+
+        <!-- Discord -->
+        <div class="discord-icon cursor-pointer">
+            <i class="fab fa-discord text-6xl text-indigo-500"></i>
+        </div>
+    </div>
+
+    <script>
+        // Add hover effects and animations
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+
+        // Social icons pulse effect on hover
+        document.querySelectorAll('.social-icon').forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.animation = 'pulse 0.5s ease-in-out';
+            });
+            icon.addEventListener('animationend', function() {
+                this.style.animation = '';
+            });
+        });
+    </script>
+</body>
+</html>
