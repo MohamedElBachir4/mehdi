@@ -276,6 +276,123 @@
             background-clip: text;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
+
+        /* Right Sidebar - responsive & scrollable */
+        .right-sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 320px;
+            max-width: 90vw;
+            height: 100vh;
+            z-index: 40;
+            padding: 1rem 0.75rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.5rem;
+            overscroll-behavior: contain;
+        }
+
+        .right-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .right-sidebar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 3px;
+        }
+
+        .right-sidebar::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 3px;
+        }
+
+        .right-sidebar::-webkit-scrollbar-thumb:hover {
+            background: #f4e5b0;
+        }
+
+        .right-sidebar .menu-item {
+            flex-shrink: 0;
+            padding: 10px 20px;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .right-sidebar .menu-item span {
+            font-size: 1rem;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            text-align: center;
+        }
+
+        .right-sidebar .thumb-icon i {
+            font-size: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .right-sidebar {
+                width: 380px;
+                padding: 1.25rem 1rem;
+                gap: 0.6rem;
+            }
+
+            .right-sidebar .menu-item {
+                padding: 12px 24px;
+            }
+
+            .right-sidebar .menu-item span {
+                font-size: 1.1rem;
+            }
+
+            .right-sidebar .thumb-icon i {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .right-sidebar {
+                width: 400px;
+                padding: 1.5rem 1rem;
+                gap: 0.75rem;
+            }
+
+            .right-sidebar .menu-item {
+                padding: 12px 30px;
+            }
+
+            .right-sidebar .menu-item span {
+                font-size: 1.25rem;
+            }
+
+            .right-sidebar .thumb-icon i {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .right-sidebar {
+                width: 280px;
+                max-width: 85vw;
+                padding: 0.75rem 0.5rem;
+                gap: 0.4rem;
+            }
+
+            .right-sidebar .menu-item {
+                padding: 8px 14px;
+            }
+
+            .right-sidebar .menu-item span {
+                font-size: 0.9rem;
+            }
+
+            .right-sidebar .thumb-icon i {
+                font-size: 1.75rem;
+            }
+        }
     </style>
 </head>
 
@@ -284,7 +401,7 @@
     <div class="absolute top-8 left-8 z-50">
         <div class="logo-top cursor-pointer">
             <div class="relative w-32 h-32">
-                <img src="unnamed.jpg" alt="WEEmpire Logo"
+                <img src="logo2.png" alt="WEEmpire Logo"
                     class="w-full h-full object-contain rounded-full border-2 border-yellow-500">
             </div>
         </div>
@@ -293,17 +410,14 @@
     <!-- Top Banner -->
     <div class="absolute top-8 left-1/2 transform -translate-x-1/2 z-40" style="width: 600px;">
         <div class="top-banner py-3 px-8 flex items-center justify-center gap-4">
-            <svg class="w-10 h-10 crown-logo" viewBox="0 0 100 100">
-                <path d="M50 5 L65 25 L85 20 L75 45 L90 55 L50 60 L10 55 L25 45 L15 20 L35 25 Z" fill="#d4af37" />
-                <rect x="30" y="60" width="40" height="15" fill="#d4af37" rx="2" />
-            </svg>
+            <img src="logo1.png" alt="WEEmpire" class="w-14 h-14 object-contain crown-logo">
             <span class="text-2xl font-bold text-white">(WEEmpire)</span>
         </div>
     </div>
 
-    <!-- Right Menu - Fixed to Right Side -->
-    <div class="fixed right-0 top-1/2 transform -translate-y-1/2 z-40 px-4" style="width: 400px;">
-        <div class="flex flex-col gap-3">
+    <!-- Right Menu - Fixed to Right Side (scrollable on all screens) -->
+    <div class="right-sidebar">
+        <div class="flex flex-col gap-2 w-full">
             <!-- Menu Item 1 -->
             <a href="introduction.html"
                 class="menu-item cursor-pointer flex items-center justify-center gap-3 no-underline">
@@ -388,7 +502,7 @@
             </div>
 
             <!-- Thumbs Up, Down and Comment -->
-            <div class="flex items-center justify-center gap-4 mt-3">
+            <div class="flex items-center justify-center gap-4 mt-3 flex-shrink-0">
                 <div class="thumb-icon cursor-pointer">
                     <i class="fas fa-thumbs-up text-5xl text-yellow-500"></i>
                 </div>
@@ -451,28 +565,9 @@
                     <!-- Highlight -->
                     <ellipse cx="240" cy="240" rx="60" ry="40" fill="white" opacity="0.2" />
 
-                    <!-- Center Shield with Crown -->
-                    <g transform="translate(300, 300)">
-                        <!-- Shield -->
-                        <path d="M0 -80 L40 -65 L40 -20 Q40 10 0 40 Q-40 10 -40 -20 L-40 -65 Z" fill="rgba(0,0,0,0.8)"
-                            stroke="#d4af37" stroke-width="3" />
-
-                        <!-- Crown -->
-                        <g transform="translate(0, -60)">
-                            <path d="M-25 -15 L-18 -30 L-10 -20 L0 -35 L10 -20 L18 -30 L25 -15 L20 0 L-20 0 Z"
-                                fill="#d4af37" stroke="#f4e5b0" stroke-width="1.5" />
-                            <!-- Crown jewels -->
-                            <circle cx="-18" cy="-25" r="2" fill="#ff6b6b" />
-                            <circle cx="0" cy="-30" r="2" fill="#4ecdc4" />
-                            <circle cx="18" cy="-25" r="2" fill="#ff6b6b" />
-                            <!-- Crown base -->
-                            <rect x="-22" y="0" width="44" height="8" fill="#d4af37" stroke="#f4e5b0"
-                                stroke-width="1" />
-                            <circle cx="-15" cy="4" r="2" fill="#ff6b6b" />
-                            <circle cx="0" cy="4" r="2" fill="#4ecdc4" />
-                            <circle cx="15" cy="4" r="2" fill="#ff6b6b" />
-                        </g>
-                    </g>
+                    <!-- Center Logo -->
+                    <image href="logo1.png" x="210" y="210" width="180" height="180"
+                        preserveAspectRatio="xMidYMid meet" />
 
                     <!-- WEEmpire text on globe -->
                     <text x="300" y="380" text-anchor="middle" fill="#d4af37" font-size="32"
